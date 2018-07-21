@@ -29,6 +29,7 @@ const Dog = Object.create(Animal); // => Dog.__proto__ = Animal; В тоже в�
 
 const Cat = Object.assign({}, Animal); // Свойства из Animal копируются в Cat.
 
+
 Fish.name = 'fish';
 Elefant.name = 'elefant';
 Cat.name = 'cat';
@@ -38,5 +39,5 @@ Dog.name = 'dog';
 console.log(Animal, Animal.say('ahhhh')); // => {name: "animal", say: ƒ} "ahhhh"
 console.log(Cat, Cat.say('meah')); // => {name: "cat", say: ƒ} "meah"
 console.log(Dog, Dog.say('woof')); // => {name: "dog"} "woof"
-console.log('Fish', Fish);
-console.log('Elefant', Elefant);
+console.log(Fish);
+console.log(Elefant);
