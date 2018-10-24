@@ -5,7 +5,8 @@
 
 class Animal {
     constructor() {
-        this.name = 'animal'
+        this.name = 'animal',
+        this.say.bind(this)
     }
 
     say(voice) { // запишется в прототип объекта
@@ -25,9 +26,9 @@ class Cat extends Animal {
         this.name = 'cat'; // до вызова super() this не существует
     }
 
-    say(voice){
-        return super.say(voice) + '!'; // расширили метод родителя
-    }
+    // say(voice){
+    //     return super.say(voice) + '!'; // расширили метод родителя
+    // }
 }
 
 
