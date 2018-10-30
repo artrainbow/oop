@@ -6,7 +6,7 @@
 class Animal {
     constructor() {
         this.name = 'animal',
-        this.say.bind(this)
+        this.say.bind(this) // привязка метода say к классу объекта
     }
 
     say(voice) { // запишется в прототип объекта
