@@ -2,11 +2,9 @@
  * Created by deod on 7/20/18.
  * you need to use node 10+ version
  *
- *
  * Inheriting Based literals
  *
  */
-
 
 
 const Animal = {

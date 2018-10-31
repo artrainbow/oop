@@ -3,44 +3,38 @@
  */
 
 function Animal() {
-    this.name = 'animal'; //  *без магии не наследуется
-    this.say = (voice) => { // * без магии не наследуется
+    this.name = ''; // наследуется только одним способом см. ниже
+    this.say = (voice) => { // наследуется только одним способом см. ниже
         return voice;
     };
 }
 
-Animal.move = function () { // наследуется
+Animal.move = function () { // объявление статического метода, который наследуется любым способом
     return 'move'
 };
 
-function Cat() {
-    this.name = 'cat'
-}
-
-function Dog() {
-    this.name = 'dog'
-}
-
-Cat.prototype = new Animal(); // Неправильный способ наследования т.к. возможны побочные эффекты от запуска инстанса Animal
+function Cat() {} // Неправильный способ наследования т.к. возможны побочные эффекты от запуска инстанса Animal, см. лог + ни методы
+Cat.prototype = new Animal();
 
 // OR
 
+function Dog() {} // Неправильный способ наследования т.к. ни методы, ни свойства записанные в конструкторе не наследуются таким способом
 Dog.prototype = Object.create(Animal.prototype);
-Dog.prototype.constructor = Dog; // Если эту строчку не добавить, то new Dog() вернет // => Animal { name: 'dog' } см. catсды
+Dog.prototype.constructor = Dog; // Если эту строчку не добавить, то new Dog() вернет // => Animal {}
 
 // OR
 
-function Fish() {
-    Animal.apply(this, arguments); // *та самая магия
+function Fish() { // Правильный способ наследования
+    Animal.apply(this, arguments);
 }
 
+const animal = new Animal();
 const cat = new Cat();
 const dog = new Dog();
 const fish = new Fish();
-fish.name = 'fish';
 
+console.log(animal); // => Animal { name: '', say: [Function] }
+console.log(cat, cat.say('meah'), cat.__proto__); // => Animal {} 'meah' Animal { name: '', say: [Function] }
+console.log(dog, dog.__proto__); // => Dog {} 'move'
+console.log(fish, fish.say('shshshsh')); // => Fish { name: '', say: [Function] } 'shshshsh'
 
-console.log(new Animal()); // => Animal { name: 'animal', say: [Function] }
-console.log(cat, cat.say('meah')); // => Animal { name: 'cat' } 'meah'
-console.log(dog, Animal.move()); // => Dog { name: 'dog' } 'move'
-console.log(fish, fish.say('shshshsh')); // => Dog { name: 'dog' } 'move'
