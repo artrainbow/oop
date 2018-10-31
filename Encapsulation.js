@@ -1,24 +1,45 @@
-function User (name, age) {
+function User1(name) {
     this.name = name;
-    var _age = age;
-    this.displayInfo = function(){
-        document.write("Имя: " + this.name + "; возраст: " + _age);
-    };
-    this.getAge = function() {
+    let _age;
+    this.getAge = function () {
         return _age;
     };
-    this.setAge = function(age) {
-        if(typeof age === "number" && age >0 && age<110){
-            _age = age;
-        } else {
-            console.log("Недопустимое значение");
-        }
+    this.setAge = function (age) {
+        _age = age;
     }
 }
 
-var tom = new User("Том", 26);
-console.log(tom._age); // undefined - _age - локальная переменная
-console.log(tom.getAge()); // 26
+// OR
+
+class User2 {
+    constructor(name) {
+        this.name = name;
+        this.age;
+    }
+}
+
+class SuperUser extends User2 {
+    constructor(name) {
+        super(name)
+    }
+
+    get userAge() {
+        return this.age;
+    };
+
+    set userAge(userAge) {
+        this.age = userAge;
+    }
+}
+
+
+const tom = new User1('Том');
+const mark = new User2('Mark');
+
+console.log(tom, tom._age, tom.getAge()); // => User1 { name: 'Том', getAge: [Function], setAge: [Function] } undefined undefined
 tom.setAge(32);
-console.log(tom.getAge()); // 32
-tom.setAge("54"); // Недопустимое значение
+console.log(tom.getAge()); // => 32
+
+console.log(mark, mark.age, mark.userAge); // => User2 { name: 'Mark' } undefined undefined
+mark.userAge = 32;
+console.log(mark.userAge); // => 32
